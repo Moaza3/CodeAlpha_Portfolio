@@ -33,6 +33,7 @@ const projects = [
     desc: 'This very portfolio site — built with HTML, CSS, and JavaScript during my Code Alpha internship.',
     tags: ['HTML', 'CSS', 'JavaScript'],
     code: 'https://github.com/Moaza3/CodeAlpha_Portfolio',
+    theme: 'teal',
   },
   {
     emoji: '🎓',
@@ -40,6 +41,7 @@ const projects = [
     desc: 'A full-stack web application built during my Code Saviours internship, covering both frontend and backend.',
     tags: ['PHP', 'MySQL'],
     code: 'https://github.com/Moaza3/forces-academy-fullstack-codesaviours-si26-moaza',
+    theme: 'navy',
   },
   {
     emoji: '🧮',
@@ -47,6 +49,7 @@ const projects = [
     desc: 'A calculator built with vanilla JavaScript as part of my Code Alpha tasks.',
     tags: ['JavaScript'],
     code: 'https://github.com/Moaza3/CodeAlpha_Calculator',
+    theme: 'gold',
   },
   {
     emoji: '🖼️',
@@ -54,6 +57,7 @@ const projects = [
     desc: 'An interactive image gallery built with JavaScript, part of my Code Alpha internship tasks.',
     tags: ['JavaScript'],
     code: 'https://github.com/Moaza3/codealpha_imagegallery',
+    theme: 'pink',
   },
   {
     emoji: '🎬',
@@ -61,6 +65,7 @@ const projects = [
     desc: 'A Netflix landing page clone focused on layout and styling with HTML and CSS.',
     tags: ['HTML', 'CSS'],
     code: 'https://github.com/Moaza3/netflix-clone-html-css',
+    theme: 'navy',
   },
   {
     emoji: '📚',
@@ -68,6 +73,7 @@ const projects = [
     desc: 'A course registration system built in Python.',
     tags: ['Python'],
     code: 'https://github.com/Moaza3/course-registration-system',
+    theme: 'sky',
   },
 ];
 
@@ -76,7 +82,9 @@ skills.forEach(function (skill) {
   const card = document.createElement('div');
   card.className = 'skill-card tilt reveal';
   card.innerHTML = `
-    <span class="skill-icon">${skill.icon}</span>
+    <div class="skill-icon-wrap">
+      <span class="skill-icon">${skill.icon}</span>
+    </div>
     <span class="skill-name">${skill.name}</span>
   `;
   skillsGrid.appendChild(card);
@@ -103,7 +111,7 @@ projects.forEach(function (project) {
   const card = document.createElement('div');
   card.className = 'project-card tilt reveal';
   card.innerHTML = `
-    <div class="project-thumb">${project.emoji}</div>
+    <div class="project-thumb theme-${project.theme}">${project.emoji}</div>
     <div class="project-body">
       <div class="project-title">${project.title}</div>
       <p class="project-desc">${project.desc}</p>
@@ -170,12 +178,53 @@ revealElements.forEach(function (element) {
   revealObserver.observe(element);
 });
 
+// Animated count-up for the About section stats
+const statNumbers = document.querySelectorAll('.stat-number');
+const statObserver = new IntersectionObserver(function (entries) {
+  entries.forEach(function (entry) {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.dataset.count, 10);
+      let current = 0;
+      const step = Math.max(1, Math.round(target / 30));
+      const timer = setInterval(function () {
+        current += step;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        el.textContent = current;
+      }, 40);
+      statObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.4 });
+
+statNumbers.forEach(function (el) {
+  statObserver.observe(el);
+});
+
 const navLinks = document.querySelectorAll('.nav-links a');
+const aboutTextWrap = document.getElementById('aboutTextWrap');
+const aboutToggle = document.getElementById('aboutToggle');
+
+function setAboutExpanded(expanded) {
+  aboutTextWrap.classList.toggle('expanded', expanded);
+  aboutToggle.textContent = expanded ? 'Read less ↑' : 'Read more ↓';
+}
+
+aboutToggle.addEventListener('click', function () {
+  setAboutExpanded(!aboutTextWrap.classList.contains('expanded'));
+});
+
 navLinks.forEach(function (link) {
   link.addEventListener('click', function (event) {
     event.preventDefault();
     const id = link.getAttribute('href');
     const section = document.querySelector(id);
+    if (id === '#about') {
+      setAboutExpanded(true);
+    }
     if (section) {
       section.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -189,3 +238,83 @@ window.addEventListener('scroll', function () {
 
 const year = document.getElementById('year');
 year.textContent = new Date().getFullYear();
+
+// Feedback / rating widget
+const FEEDBACK_KEY = 'moaza-portfolio-feedback';
+const stars = document.querySelectorAll('.star');
+const feedbackText = document.getElementById('feedbackText');
+const submitFeedback = document.getElementById('submitFeedback');
+const feedbackThanks = document.getElementById('feedbackThanks');
+const feedbackAverage = document.getElementById('feedbackAverage');
+let selectedRating = 0;
+
+function paintStars(value) {
+  stars.forEach(function (star) {
+    const starValue = parseInt(star.dataset.value, 10);
+    star.classList.toggle('active', starValue <= value);
+  });
+}
+
+function loadFeedback() {
+  try {
+    const raw = localStorage.getItem(FEEDBACK_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function renderAverage() {
+  const entries = loadFeedback();
+  if (entries.length === 0) {
+    feedbackAverage.textContent = '';
+    return;
+  }
+  const total = entries.reduce(function (sum, entry) { return sum + entry.rating; }, 0);
+  const avg = (total / entries.length).toFixed(1);
+  feedbackAverage.textContent =
+    'Average rating so far: ' + avg + ' ★ (' + entries.length + (entries.length === 1 ? ' review' : ' reviews') + ' on this device)';
+}
+
+stars.forEach(function (star) {
+  star.addEventListener('mouseenter', function () {
+    paintStars(parseInt(star.dataset.value, 10));
+  });
+  star.addEventListener('mouseleave', function () {
+    paintStars(selectedRating);
+  });
+  star.addEventListener('click', function () {
+    selectedRating = parseInt(star.dataset.value, 10);
+    paintStars(selectedRating);
+  });
+});
+
+submitFeedback.addEventListener('click', function () {
+  if (selectedRating === 0) {
+    feedbackThanks.textContent = 'Please pick a star rating first 🙂';
+    feedbackThanks.style.color = '#c0665a';
+    return;
+  }
+
+  const entries = loadFeedback();
+  entries.push({
+    rating: selectedRating,
+    text: feedbackText.value.trim(),
+    date: new Date().toISOString(),
+  });
+
+  try {
+    localStorage.setItem(FEEDBACK_KEY, JSON.stringify(entries));
+  } catch {
+    // storage unavailable, still show a thank-you
+  }
+
+  feedbackThanks.style.color = '';
+  feedbackThanks.textContent = 'Thank you for your feedback! 💛';
+  feedbackText.value = '';
+  selectedRating = 0;
+  paintStars(0);
+  renderAverage();
+});
+
+renderAverage();

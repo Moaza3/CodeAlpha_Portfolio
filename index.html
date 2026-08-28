@@ -20,6 +20,7 @@
       <a href="#skills">Skills</a>
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
+      <a href="#feedback">Feedback</a>
       <a href="#contact">Contact</a>
     </div>
   </nav>
@@ -44,23 +45,64 @@
         <a href="#contact" class="btn btn-outline">Let's Connect</a>
       </div>
     </div>
-
-    <div class="scroll-hint">
-      <span></span>
-    </div>
   </section>
 
-  <section class="section" id="about">
+  <section class="section about-section" id="about">
     <p class="section-eyebrow reveal">Get to know me</p>
     <h2 class="section-title reveal">About Me</h2>
-    <p class="about-text reveal">
-      I'm a web developer working across both frontend and backend. At
-      Code Alpha, I focus on frontend development building interactive,
-      polished user interfaces. At Code Saviours, I work full stack,
-      handling both frontend and backend. Alongside this, I'm also
-      building a strong foundation in Python and C++, and constantly
-      picking up new skills through hands-on projects.
-    </p>
+
+    <div class="about-grid">
+      <div class="about-text-wrap reveal" id="aboutTextWrap">
+        <p class="about-text">
+          I'm Moaza — a Computer Science student and web developer who likes turning ideas into
+          interfaces people actually enjoy clicking around in. Right now I split my time between two
+          internships: at <strong>Code Alpha</strong> I focus purely on the frontend, obsessing over the
+          small details that make an interface feel alive, and at <strong>Code Saviours</strong> I work
+          full stack, building real features from the database all the way to the browser.
+        </p>
+        <div class="about-more" id="aboutMore">
+          <p class="about-text">
+            Outside of internships, I'm sharpening my fundamentals in Python and C++, and I learn best by
+            building every project on this page started as "I wonder if I can make this." I care about
+            clean code, tidy UI, and the kind of small interaction detail most people scroll past without
+            noticing.
+          </p>
+          <p class="about-text">
+            When I'm not writing code, I'm usually reading up on new frontend tricks, redesigning this very
+            portfolio for the third time, or figuring out how to make a button feel just a little more
+            satisfying to click.
+          </p>
+        </div>
+        <button class="about-toggle" id="aboutToggle" type="button">Read more ↓</button>
+      </div>
+
+      <div class="about-stats reveal">
+        <div class="stat-card tilt accent-teal">
+          <span class="stat-icon">💼</span>
+          <span class="stat-number" data-count="2">0</span>
+          <span class="stat-label">Active Internships</span>
+        </div>
+        <div class="stat-card tilt accent-pink">
+          <span class="stat-icon">🚀</span>
+          <span class="stat-number" data-count="6">0</span>
+          <span class="stat-label">Projects Built</span>
+        </div>
+        <div class="stat-card tilt accent-gold">
+          <span class="stat-icon">🛠️</span>
+          <span class="stat-number" data-count="8">0</span>
+          <span class="stat-label">Tools &amp; Languages</span>
+        </div>
+        <div class="stat-card tilt accent-sky">
+          <span class="stat-icon">🎓</span>
+          <span class="stat-number" data-count="2">0</span>
+          <span class="stat-label">Years at GCUF</span>
+        </div>
+        <div class="stat-card wide tilt accent-navy">
+          <span class="stat-icon">📍</span>
+          <span class="stat-label">Based in Pakistan · Open to remote work</span>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="section" id="education">
@@ -71,8 +113,8 @@
       <div class="edu-icon">🎓</div>
       <div>
         <span class="edu-year">2024 — 2028 · 2nd Year</span>
-        <h3>Government College University</h3>
-        <p class="edu-sub">Bachelor's Degree ( Computer Science )</p>
+        <h3>Government College University Faisalabad</h3>
+        <p class="edu-sub">Bachelor's Degree — Computer Science</p>
         <p class="edu-note">Building a strong foundation in programming, web development, and computer science
           fundamentals.</p>
       </div>
@@ -95,6 +137,29 @@
     <p class="section-eyebrow reveal">A few things I've built</p>
     <h2 class="section-title reveal">Projects</h2>
     <div class="projects-grid" id="projectsGrid"></div>
+  </section>
+
+  <section class="section feedback-section" id="feedback">
+    <p class="section-eyebrow reveal">Before you go</p>
+    <h2 class="section-title reveal">Rate My Portfolio</h2>
+    <p class="feedback-sub reveal">
+      Liked what you saw? Or think something could be better? Pick a star rating and leave a note if you'd like
+      it genuinely helps.
+    </p>
+
+    <div class="feedback-card reveal">
+      <div class="stars" id="starRating">
+        <span class="star" data-value="1">★</span>
+        <span class="star" data-value="2">★</span>
+        <span class="star" data-value="3">★</span>
+        <span class="star" data-value="4">★</span>
+        <span class="star" data-value="5">★</span>
+      </div>
+      <textarea id="feedbackText" class="feedback-input" placeholder="Any thoughts on the design, layout, or projects? (optional)"></textarea>
+      <button class="btn btn-primary" id="submitFeedback" type="button">Submit Feedback</button>
+      <p class="feedback-thanks" id="feedbackThanks"></p>
+      <p class="feedback-average" id="feedbackAverage"></p>
+    </div>
   </section>
 
   <section class="section contact-section" id="contact">
