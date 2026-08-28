@@ -178,7 +178,6 @@ revealElements.forEach(function (element) {
   revealObserver.observe(element);
 });
 
-// Animated count-up for the About section stats
 const statNumbers = document.querySelectorAll('.stat-number');
 const statObserver = new IntersectionObserver(function (entries) {
   entries.forEach(function (entry) {
@@ -239,7 +238,6 @@ window.addEventListener('scroll', function () {
 const year = document.getElementById('year');
 year.textContent = new Date().getFullYear();
 
-// Feedback / rating widget
 const FEEDBACK_KEY = 'moaza-portfolio-feedback';
 const stars = document.querySelectorAll('.star');
 const feedbackText = document.getElementById('feedbackText');
@@ -306,7 +304,6 @@ submitFeedback.addEventListener('click', function () {
   try {
     localStorage.setItem(FEEDBACK_KEY, JSON.stringify(entries));
   } catch {
-    // storage unavailable, still show a thank-you
   }
 
   feedbackThanks.style.color = '';
