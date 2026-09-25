@@ -38,6 +38,8 @@ Everything — including the projects list, timeline, and skills grid — is ren
 ```bash
 git clone https://github.com/Moaza3/CodeAlpha_Portfolio.git
 cd CodeAlpha_Portfolio
+```
+
 Then just open `index.html` — no build step, no dependencies.
 
 ## A few things I'd improve next
