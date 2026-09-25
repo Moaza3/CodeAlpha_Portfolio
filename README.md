@@ -31,15 +31,6 @@ Everything here — layout, animation, and interactivity — is hand-written. No
 
 Everything — including the projects list, timeline, and skills grid — is rendered dynamically from JavaScript objects, so updating content later just means editing an array, not the HTML.
 
-## Preview
-
-Add screenshots to a `/screenshots` folder and drop them in here, e.g.:
-
-```markdown
-![Hero section](screenshots/hero.png)
-![About + stats](screenshots/about.png)
-```
-
 ## Run it yourself
 
 ```bash
@@ -55,7 +46,6 @@ Then just open `index.html` — no build step, no dependencies.
 - Add a dark/light mode toggle
 - Break the JS into smaller modules as the content grows
 
----
-
-**Moaza** — Frontend Development Intern @ CodeAlpha
+**Moaza** 
+Frontend Development Intern @ CodeAlpha
 [GitHub](https://github.com/Moaza3) · [LinkedIn](https://www.linkedin.com/in/moaza-yaqoob-7a94a6401/) · moazafree@gmail.com
